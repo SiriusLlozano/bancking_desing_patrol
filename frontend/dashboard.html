@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banco Sirbull | Dashboard</title>
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+
+  <header class="barra-superior">
+    <div class="marca">
+      <span class="simbolo">BS</span>
+      <strong>Banco Sirbull</strong>
+    </div>
+    <div class="sesion">
+      <span id="sesion-usuario"></span>
+      <button id="btn-logout" class="btn btn-secundario" type="button">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main class="panel">
+    <nav class="tabs-dashboard" aria-label="Secciones del dashboard" role="tablist">
+      <button id="tab-cuentas" class="tab-dashboard activa" type="button" role="tab"
+        aria-selected="true" aria-controls="vista-cuentas" data-tab="cuentas">Mis cuentas</button>
+      <button id="tab-operaciones" class="tab-dashboard" type="button" role="tab"
+        aria-selected="false" aria-controls="vista-operaciones" data-tab="operaciones">Mis operaciones</button>
+      <button id="tab-solicitudes" class="tab-dashboard" type="button" role="tab"
+        aria-selected="false" aria-controls="vista-solicitudes" data-tab="solicitudes">Aprobaciones</button>
+    </nav>
+
+    <section id="vista-cuentas" role="tabpanel" aria-labelledby="tab-cuentas">
+      <div class="encabezado-cuentas">
+        <div>
+          <p class="etiqueta-seccion">BANCA PERSONAL</p>
+          <h1>Mis cuentas</h1>
+        </div>
+        <div class="acciones-dashboard">
+          <button id="btn-refrescar" class="btn btn-secundario" type="button">Actualizar</button>
+          <button id="btn-abrir-cuenta" class="btn btn-primario" type="button">
+            <span aria-hidden="true">+</span> Aperturar cuenta
+          </button>
+        </div>
+      </div>
+      <table class="tabla">
+      <thead>
+        <tr>
+          <th>Número</th>
+          <th>Tipo</th>
+          <th>Titularidad</th>
+          <th class="derecha">Saldo</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-cuerpo">
+        <tr><td colspan="4" class="vacio">Cargando tus cuentas…</td></tr>
+      </tbody>
+      </table>
+    </section>
+
+    <section id="vista-operaciones" role="tabpanel" aria-labelledby="tab-operaciones" hidden>
+      <div class="encabezado-operaciones">
+        <div>
+          <p class="etiqueta-seccion">BANCA PERSONAL</p>
+          <h1>Mis operaciones</h1>
+        </div>
+      </div>
+      <div class="grid-operaciones">
+        <button class="tarjeta-operacion" type="button" data-operation="DEPOSITO">
+          <span class="icono-operacion deposito" aria-hidden="true">↓</span>
+          <strong>Depositar</strong>
+          <small>Ingresar dinero a una de tus cuentas</small>
+        </button>
+        <button class="tarjeta-operacion" type="button" data-operation="RETIRO">
+          <span class="icono-operacion retiro" aria-hidden="true">↑</span>
+          <strong>Retirar</strong>
+          <small>Retirar dinero según las condiciones de tu cuenta</small>
+        </button>
+        <button class="tarjeta-operacion" type="button" data-operation="TRANSFERENCIA">
+          <span class="icono-operacion transferencia" aria-hidden="true">⇄</span>
+          <strong>Transferir</strong>
+          <small>Enviar dinero a otra cuenta bancaria</small>
+        </button>
+      </div>
+    </section>
+
+    <section id="vista-solicitudes" role="tabpanel" aria-labelledby="tab-solicitudes" hidden>
+      <div class="encabezado-cuentas">
+        <div>
+          <p class="etiqueta-seccion">CUENTAS MANCOMUNADAS</p>
+          <h1>Solicitudes de retiro</h1>
+        </div>
+        <button id="btn-refrescar-solicitudes" class="btn btn-secundario" type="button">Actualizar</button>
+      </div>
+      <div id="lista-solicitudes" class="lista-solicitudes" aria-live="polite">
+        <p class="vacio">Cargando solicitudes…</p>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="modal-cuenta" class="modal-cuenta" aria-labelledby="titulo-modal-cuenta">
+    <div class="modal-contenido">
+      <header id="encabezado-modal-cuenta" class="modal-encabezado">
+        <div>
+          <p class="etiqueta-seccion">NUEVO PRODUCTO</p>
+          <h2 id="titulo-modal-cuenta">Aperturar una cuenta</h2>
+          <p>Elige el producto, la titularidad y el monto de apertura.</p>
+        </div>
+        <button id="btn-cerrar-modal" class="btn-cerrar" type="button" aria-label="Cerrar">×</button>
+      </header>
+
+      <form id="form-crear-cuenta">
+        <fieldset class="grupo-tipo">
+          <legend>Tipo de cuenta</legend>
+          <div class="opciones-cuenta">
+            <label class="opcion-cuenta" for="tipo-ahorros">
+              <input id="tipo-ahorros" type="radio" name="tipo" value="AHORROS" checked />
+              <span><strong>Ahorros</strong><small>Para guardar y hacer crecer tu dinero.</small></span>
+            </label>
+            <label class="opcion-cuenta" for="tipo-corriente">
+              <input id="tipo-corriente" type="radio" name="tipo" value="CORRIENTE" />
+              <span><strong>Corriente</strong><small>Para tus movimientos frecuentes.</small></span>
+            </label>
+            <label class="opcion-cuenta" for="tipo-empresarial">
+              <input id="tipo-empresarial" type="radio" name="tipo" value="EMPRESARIAL" />
+              <span><strong>Empresarial</strong><small>Para administrar un negocio.</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="grupo-tipo">
+          <legend>Titularidad y modalidad de operación</legend>
+          <p class="ayuda-titularidad">
+            Esto no cambia el tipo de cuenta elegido. Una cuenta mancomunada tiene varios titulares;
+            la aprobación de retiros es una regla adicional de este prototipo.
+          </p>
+          <div class="opciones-titularidad">
+            <label class="opcion-cuenta" for="titularidad-individual">
+              <input id="titularidad-individual" type="radio" name="titularidad" value="INDIVIDUAL" checked />
+              <span><strong>Un titular</strong><small>La cuenta pertenece a un solo cliente.</small></span>
+            </label>
+            <label class="opcion-cuenta" for="titularidad-mancomunada">
+              <input id="titularidad-mancomunada" type="radio" name="titularidad" value="MANCOMUNADA" />
+              <span><strong>Varios titulares (mancomunada)</strong><small>Comparte esta cuenta con otros clientes.</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div id="campos-mancomunada" class="campos-mancomunada" hidden>
+          <div class="campo">
+            <span class="etiqueta-campo">Otros titulares</span>
+            <div id="lista-titulares" class="lista-titulares" aria-label="Selecciona otros titulares"></div>
+            <small id="ayuda-titulares">Cargando usuarios disponibles...</small>
+          </div>
+          <label class="opcion-aprobacion" for="requiere-aprobacion">
+            <input id="requiere-aprobacion" type="checkbox" />
+            <span>En este prototipo, cada retiro requiere la aprobación de todos los demás titulares</span>
+          </label>
+        </div>
+
+        <div class="campo campo-monto">
+          <label for="cuenta-saldo">Monto de apertura</label>
+          <div class="entrada-monto">
+            <span aria-hidden="true">S/</span>
+            <input id="cuenta-saldo" type="number" min="0.01" step="0.01" required placeholder="0.00" />
+          </div>
+        </div>
+
+        <p id="mensaje-modal" class="mensaje error" role="alert" hidden></p>
+
+        <footer class="acciones-modal">
+          <button id="btn-cancelar-cuenta" class="btn btn-secundario" type="button">Cancelar</button>
+          <button id="btn-confirmar-apertura" class="btn btn-primario" type="submit">Confirmar apertura</button>
+        </footer>
+      </form>
+
+      <section id="resultado-cuenta" class="resultado-cuenta" aria-live="polite" hidden>
+        <span class="resultado-icono" aria-hidden="true">✓</span>
+        <p class="etiqueta-seccion">OPERACIÓN COMPLETADA</p>
+        <h3>Cuenta aperturada</h3>
+        <p>Este es tu nuevo número de cuenta:</p>
+        <strong id="numero-asignado" class="numero-asignado"></strong>
+        <p id="detalle-cuenta-creada"></p>
+        <button id="btn-listo" class="btn btn-primario" type="button">Listo</button>
+      </section>
+    </div>
+  </dialog>
+
+  <dialog id="modal-operacion" class="modal-cuenta" aria-labelledby="titulo-operacion">
+    <div class="modal-contenido">
+      <header id="encabezado-operacion" class="modal-encabezado">
+        <div>
+          <p class="etiqueta-seccion">OPERACIONES</p>
+          <h2 id="titulo-operacion">Realizar una operación</h2>
+          <p id="ayuda-operacion">Selecciona la cuenta y el monto.</p>
+        </div>
+        <button id="btn-cerrar-operacion" class="btn-cerrar" type="button" aria-label="Cerrar">×</button>
+      </header>
+
+      <form id="form-operacion">
+        <div class="campo" id="campo-cuenta-operacion">
+          <label for="cuenta-operacion">Cuenta</label>
+          <select id="cuenta-operacion" required></select>
+        </div>
+        <div class="campo" id="campo-cuenta-destino" hidden>
+          <label for="cuenta-destino">Número de cuenta destino</label>
+          <input id="cuenta-destino" type="text" placeholder="001-0000000000000000" />
+        </div>
+        <div class="campo campo-monto">
+          <label for="monto-operacion">Monto</label>
+          <div class="entrada-monto">
+            <span aria-hidden="true">S/</span>
+            <input id="monto-operacion" type="number" min="0.01" step="0.01" required placeholder="0.00" />
+          </div>
+        </div>
+        <p id="error-operacion" class="mensaje error" role="alert" hidden></p>
+        <footer class="acciones-modal">
+          <button id="btn-cancelar-operacion" class="btn btn-secundario" type="button">Cancelar</button>
+          <button id="btn-confirmar-operacion" class="btn btn-primario" type="submit">Confirmar operación</button>
+        </footer>
+      </form>
+
+      <section id="resultado-operacion" class="resultado-cuenta" aria-live="polite" hidden>
+        <span class="resultado-icono" aria-hidden="true">✓</span>
+        <p class="etiqueta-seccion">OPERACIÓN COMPLETADA</p>
+        <h3 id="texto-operacion"></h3>
+        <p id="detalle-operacion"></p>
+        <div id="datos-codigo-retiro" class="datos-codigo-retiro" hidden>
+          <span>Código para validar en el cajero</span>
+          <strong id="codigo-retiro" class="numero-asignado"></strong>
+          <small id="vence-codigo-retiro"></small>
+        </div>
+        <button id="btn-listo-operacion" class="btn btn-primario" type="button">Listo</button>
+      </section>
+    </div>
+  </dialog>
+
+  <script type="module" src="/src/dashboard.js"></script>
+</body>
+</html>

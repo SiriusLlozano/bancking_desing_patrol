@@ -1,0 +1,15 @@
+{
+  "name": "banckingsirbull-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Banking Sirbull - Interfaz de usuario (frontend)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}

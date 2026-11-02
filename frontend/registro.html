@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banco Sirbull | Registro</title>
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+
+  <section class="contenedor">
+    <div class="tarjeta">
+      <div class="cabecera-logo">
+        <span class="simbolo">BS</span>
+        <div>
+          <h1>Banco Sirbull</h1>
+          <p class="subtitulo">Creación de usuario</p>
+        </div>
+      </div>
+
+      <h2 class="titulo-form">Registrarse</h2>
+
+      <form id="form-registro" class="formulario">
+        <label for="nombre">Nombre completo</label>
+        <input id="nombre" type="text" required placeholder="Camila Pérez" />
+
+        <label for="username">Usuario</label>
+        <input id="username" type="text" required placeholder="camila" autocomplete="username" />
+
+        <label for="password">Contraseña</label>
+        <input id="password" type="password" required placeholder="••••••••" autocomplete="new-password" />
+
+        <button class="btn btn-primario" type="submit">Crear cuenta de usuario</button>
+      </form>
+
+      <p id="mensaje" class="mensaje" hidden></p>
+
+      <p class="cambiar-pagina">¿Ya tienes cuenta? <a href="index.html">Inicia sesión</a></p>
+    </div>
+  </section>
+
+  <script type="module" src="/src/registro.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+# Java / Maven
+**/target/
+**/build/
+*.class
+*.jar
+*.war
+
+# Node / Vite
+**/node_modules/
+**/dist/
+npm-debug.log*
+
+# IDE and local workspace files
+.idea/
+**/.idea/
+*.iml
+
+# Generated modernization session data
+.github/modernize/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and local databases
+*.log
+*.mv.db
+*.trace.db
